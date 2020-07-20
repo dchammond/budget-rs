@@ -1,8 +1,16 @@
+use std::fmt;
+
 #[derive(Clone, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub(crate) struct Location {
     city: String,
     state: String,
     country: String,
+}
+
+impl fmt::Display for Location {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "[{},{},{}]", self.city, self.state, self.country)
+    }
 }
 
 impl Location {

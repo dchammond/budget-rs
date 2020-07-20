@@ -1,8 +1,9 @@
 use crate::currency::Currency;
-use crate::date::{DateDuration, DateInstant};
+use crate::date::DateInstant;
 use crate::location::Location;
 
 use std::convert::TryFrom;
+use std::fmt;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
 pub(crate) struct Transaction {
@@ -12,6 +13,21 @@ pub(crate) struct Transaction {
     location: Location,
     amount: Currency,
     category: Category,
+}
+
+impl fmt::Display for Transaction {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "[{},{},{},{},{},{}]",
+            self.date,
+            self.vendor,
+            self.description,
+            self.location,
+            self.amount.to_string_accounting(),
+            self.category
+        )
+    }
 }
 
 impl Transaction {
@@ -129,9 +145,9 @@ impl TryFrom<&str> for Category {
     }
 }
 
-impl ToString for Category {
-    fn to_string(&self) -> String {
-        match self {
+impl fmt::Display for Category {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let s = match self {
             Self::Auto => "auto",
             Self::CreditCard => "creditcard",
             Self::Donation => "donation",
@@ -155,7 +171,7 @@ impl ToString for Category {
             Self::Transfer => "transfer",
             Self::Utilities => "utilities",
             Self::Other => "other",
-        }
-        .to_owned()
+        };
+        write!(f, "{}", s)
     }
 }

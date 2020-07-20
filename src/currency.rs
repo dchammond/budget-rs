@@ -19,6 +19,33 @@ impl Currency {
     pub fn get(&self) -> i64 {
         self.into()
     }
+
+    pub fn to_string_numeric(&self) -> String {
+        let mut s;
+        if self.amount < 0 {
+            s = String::from("-$");
+        } else {
+            s = String::from("$");
+        }
+        let f = (self.amount.abs() as f64) / 100.0;
+        s.push_str(&format!("{:.02}", f));
+        s
+    }
+
+    pub fn to_string_accounting(&self) -> String {
+        let mut s;
+        if self.amount < 0 {
+            s = String::from("(");
+        } else {
+            s = String::new();
+        }
+        let f = (self.amount.abs() as f64) / 100.0;
+        s.push_str(&format!("{:.02}", f));
+        if self.amount < 0 {
+            s.push_str(")");
+        }
+        s
+    }
 }
 
 impl From<i64> for Currency {
