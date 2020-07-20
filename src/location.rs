@@ -1,7 +1,7 @@
 use std::fmt;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct Location {
+pub struct Location {
     city: String,
     state: String,
     country: String,

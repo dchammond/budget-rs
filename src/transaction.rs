@@ -6,7 +6,7 @@ use std::convert::TryFrom;
 use std::fmt;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct Transaction {
+pub struct Transaction {
     date: DateInstant,
     vendor: String,
     description: String,
@@ -77,7 +77,7 @@ impl Transaction {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord)]
 #[non_exhaustive]
-pub(crate) enum Category {
+pub enum Category {
     Auto,
     CreditCard,
     Donation,

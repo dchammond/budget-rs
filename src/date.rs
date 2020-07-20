@@ -60,7 +60,7 @@ impl Month {
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct DateInstant {
+pub struct DateInstant {
     days: u32, // Since 2000-01-01 (Y-M-D)
 }
 
@@ -80,7 +80,7 @@ impl DateInstant {
         if year < 2000 || month == 0 || month > 12 || day == 0 || day > 31 {
             panic!("{} {} {}", year, month, day);
         }
-        let mut days: u32 = day as u32;
+        let mut days: u32 = (day - 1) as u32;
         days = (2000..year)
             .into_iter()
             .fold(days, |d, y| match leap_year(y) {
@@ -139,7 +139,7 @@ impl DateInstant {
 impl fmt::Display for DateInstant {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let date = self.to_date();
-        write!(f, "{}-{}-{}", date.0, date.1, date.2)
+        write!(f, "{:04}-{:02}-{:02}", date.0, date.1, date.2)
     }
 }
 
@@ -186,7 +186,7 @@ impl AddAssign<DateDuration> for DateInstant {
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct DateDuration {
+pub struct DateDuration {
     days: u32,
 }
 

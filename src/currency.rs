@@ -1,7 +1,7 @@
 use std::ops::{Add, AddAssign, Div, DivAssign, Neg, Sub, SubAssign};
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, PartialOrd, Ord)]
-pub(crate) struct Currency {
+pub struct Currency {
     amount: i64,
 }
 
